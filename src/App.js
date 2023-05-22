@@ -1,25 +1,73 @@
-import logo from './logo.svg';
-import './App.css';
+import React,{useState} from 'react'
+ 
+// import About from './Components/About';
+import Navbar from './Components/Navbar';
+import TextForm from './Components/TextForm';
+import Alert from './Components/Alert';
+// import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+const  App=()=> {
+ const [Mode, setMode] = useState("light");
+ const [alert, setAlert] = useState(null);
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+ 
+ 
+ 
+
+
+
+  const showAlert = (message, type) => {
+   setAlert({
+       msg: message,
+       Type: type
+   })
+   setTimeout(() => {
+     setAlert(null)
+   }, 1500);
+}
+ const toggleMode=()=>{
+   if (Mode === "dark"){
+    
+     setMode("light")
+     document.body.style.backgroundColor="white"
+     showAlert("light mode has been enabled",  "success"  )
+     document.title="TextUtils-Light Mode"
+      
+   }else{
+     setMode("dark")
+     document.body.style.backgroundColor="grey"
+     showAlert("dark mode has been enabled", "success"  )
+     document.title="TextUtils-Dark Mode"
+   }
+ }
+ return ( 
+
+   <>    
+   
+
+<Alert alert={alert}/>
+    <div className="container">
+   
+    {/* <Router> */}
+    <Navbar title= "Ashu" mode={Mode} toggleMode={toggleMode}/>
+
+{/* <Routes> */}
+ {/* <Route path="/about" element={<About />} /> */}
+  <TextForm showAlert={showAlert} heading="Enter the text to analyze below" mode={Mode} /> 
+{/* </Routes>
+</Router>
+       */}
+      {/* <About />
+           <TextForm showAlert={showAlert} heading="Enter the text to analyze below" mode={Mode}/>
+   */}
+ 
+ 
+    
+    
+   
+   </div>
+  
+    </>
+ );
 }
 
 export default App;
